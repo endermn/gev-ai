@@ -9,6 +9,7 @@ config: Config = Config()
 history_parser: HistoryParser = HistoryParser()
 
 def main(args: list[str]) -> None:
+    # pesho
 
     load_dotenv()
 
