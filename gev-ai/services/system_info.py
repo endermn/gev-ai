@@ -21,3 +21,11 @@ class SystemInfo(SystemInfoInterface):
             print(f"Error running neofetch: {e}")
             clean_output = None
         return clean_output
+
+    def get_pwd_files(self) -> str | None:
+        try:
+            output = subprocess.check_output(["ls", "-R"], text=True)
+        except Exception as e:
+            print(f"Error running neofetch: {e}")
+            output = None
+        return output

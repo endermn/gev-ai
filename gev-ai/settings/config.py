@@ -1,6 +1,7 @@
 import os
 import configparser
 from utils.history_parser import HistoryParser
+from settings.settings import settings
 
 
 class Config():
@@ -9,7 +10,7 @@ class Config():
 
     def __init__(self) -> None:
         if os.name == 'nt':
-            self.config_dir = os.path.join(os.environ['APPDATA'], 'gevai')
+            self.config_dir = os.path.join(settings.app_data, "gevai")
         else:
             self.config_dir = os.path.join(os.path.expanduser('~'), '.config', 'gevai')
         self.config_file = os.path.join(self.config_dir, 'config.ini')

@@ -1,5 +1,4 @@
 import sys
-from dotenv import load_dotenv
 
 from settings.config import Config
 from utils.history_parser import HistoryParser
@@ -9,10 +8,6 @@ config: Config = Config()
 history_parser: HistoryParser = HistoryParser()
 
 def main(args: list[str]) -> None:
-    # pesho
-
-    load_dotenv()
-
     if len(args) < 2:
         print("Usage: gevai <your query>")
         sys.exit(1)

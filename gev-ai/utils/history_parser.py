@@ -1,9 +1,10 @@
 import os
+from settings.settings import settings
 
 
 class HistoryParser:
     def _get_default_history_path(self) -> str:
-        shell = os.environ.get("SHELL", "").lower()
+        shell = settings.shell.lower()
 
         if "zsh" in shell:
             return "~/.zsh_history"
@@ -14,7 +15,7 @@ class HistoryParser:
             return "~/.bash_history"
         elif os.name == "nt":
             return os.path.join(
-                os.environ["APPDATA"],
+                settings.app_data,
                 "Microsoft\\Windows\\PowerShell\\PSReadLine\\ConsoleHost_history.txt",
             )
 
