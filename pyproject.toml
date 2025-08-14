@@ -6,7 +6,7 @@ authors = [
     {name = "gevla"}
 ]
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.11"
 dependencies = [
     "google-genai (>=1.28.0,<2.0.0)",
     "python-dotenv (>=1.1.1,<2.0.0)",
