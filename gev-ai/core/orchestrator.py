@@ -15,6 +15,7 @@ from services.genai_service import GeminiAgent
 
 from tools.interfaces import Tool
 from tools.weather_tool import WeatherTool
+from tools.system_health import SystemHealthTool
 
 
 from google.genai import types
@@ -47,7 +48,8 @@ class Orchestrator():
 
     def get_tools(self) -> list[Callable]:
         weather_tool: Tool = WeatherTool()
-        tools: list[Callable] = [weather_tool.get_weather_location]
+        health_tool: Tool = SystemHealthTool()
+        tools: list[Callable] = [weather_tool.get_weather_location, health_tool.get_system_health]
         return tools
 
 
