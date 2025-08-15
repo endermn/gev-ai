@@ -48,7 +48,10 @@ class Orchestrator():
     def get_tools(self) -> list[Callable]:
         weather_tool: Tool = WeatherTool()
         health_tool: Tool = SystemHealthTool()
-        tools: list[Callable] = [weather_tool.get_weather_location, health_tool.get_system_health]
+        # grounding_tool: types.Tool = types.Tool(
+        #     google_search=types.GoogleSearch()
+        # )
+        tools = [weather_tool.get_weather_location, health_tool.get_system_health]
         return tools
 
 
