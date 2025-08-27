@@ -13,6 +13,8 @@ from core.interfaces import Agent
 from services.genai_service import GeminiAgent
 
 from tools.interfaces import Tool
+
+from tools.read_files import CatFile
 from tools.weather_tool import WeatherTool
 from tools.system_health import SystemHealthTool
 
@@ -48,10 +50,11 @@ class Orchestrator():
     def get_tools(self) -> list[Callable]:
         weather_tool: Tool = WeatherTool()
         health_tool: Tool = SystemHealthTool()
+        cat_tool: Tool = CatFile()
         # grounding_tool: types.Tool = types.Tool(
         #     google_search=types.GoogleSearch()
         # )
-        tools = [weather_tool.get_weather_location, health_tool.get_system_health]
+        tools = [weather_tool.get_weather_location, health_tool.get_system_health, cat_tool.cat_file]
         return tools
 
 

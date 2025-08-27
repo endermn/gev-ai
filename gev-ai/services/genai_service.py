@@ -24,4 +24,5 @@ class GeminiAgent(Agent):
                 tools=self.tools
             ),
         )
+
         return response
