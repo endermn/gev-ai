@@ -11,6 +11,8 @@ Here's a breakdown of its key features and structure:
 *   **Configuration Management:** Allows users to configure the tool, including specifying the path to their terminal history for context.
 *   **Extensible Tooling:** Designed with a clear structure for adding new tools and functionalities.
 
+## Contributing:
+
 ### Project Structure:
 
 The project is organized into several key directories:
@@ -36,7 +38,17 @@ The project is organized into several key directories:
 *   **`poetry.lock`**: Lock file for Poetry dependency management.
 *   **`pyproject.toml`**: Project metadata, dependencies, and build configuration.
 
-### Getting Started:
+
+### Dependencies:
+
+The project relies on the following key Python libraries:
+
+*   `google-genai`: For interacting with Google's generative AI models.
+*   `python-dotenv`: To load environment variables from a `.env` file.
+*   `pydantic-settings`: For managing application settings.
+*   `psutil`: For system and process utilities.
+
+## Getting Started:
 
 1.  **Install Dependencies:**
     ```bash
@@ -52,12 +64,3 @@ The project is organized into several key directories:
     ```bash
     gevai <your query>
     ```
-
-### Dependencies:
-
-The project relies on the following key Python libraries:
-
-*   `google-genai`: For interacting with Google's generative AI models.
-*   `python-dotenv`: To load environment variables from a `.env` file.
-*   `pydantic-settings`: For managing application settings.
-*   `psutil`: For system and process utilities.
