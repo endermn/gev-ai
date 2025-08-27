@@ -48,7 +48,6 @@ class Config:
             if value is not None:
                 print(f"{key} = {value} (set explicitly)")
             else:
-                # If not explicitly set, find and show the default
                 if key == "history":
                     print(f"{key} = {default_value} (default)")
                 else:
