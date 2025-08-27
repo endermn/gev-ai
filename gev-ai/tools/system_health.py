@@ -4,14 +4,16 @@ from typing import Any
 
 from tools.interfaces import Tool
 
+
 class SystemHealthTool(Tool):
     @property
     def name(self) -> str:
         return "system_health_tool"
+
     @property
     def description(self) -> str:
         return "returns the health of the system (memory usage, disk usage...)"
-    
+
     def get_system_health(self) -> dict[str, Any]:
         cpu_percent = psutil.cpu_percent(interval=1)
 
@@ -21,7 +23,7 @@ class SystemHealthTool(Tool):
         mem_used = mem.used
         mem_percent = mem.percent
 
-        disk = psutil.disk_usage('/')
+        disk = psutil.disk_usage("/")
         disk_total = disk.total
         disk_used = disk.used
         disk_free = disk.free

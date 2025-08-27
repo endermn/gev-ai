@@ -6,6 +6,7 @@ from prompts.gemini_system_prompt import system_prompt
 from google.genai import types
 from google import genai
 
+
 class GeminiAgent(Agent):
     client: genai.Client
     tools: list[Callable]
@@ -17,11 +18,10 @@ class GeminiAgent(Agent):
 
     def call_agent(self, content: str) -> types.GenerateContentResponse | None:
         response = self.client.models.generate_content(
-            model = self.model,
+            model=self.model,
             contents=content,
             config=types.GenerateContentConfig(
-                system_instruction=system_prompt,
-                tools=self.tools
+                system_instruction=system_prompt, tools=self.tools
             ),
         )
 

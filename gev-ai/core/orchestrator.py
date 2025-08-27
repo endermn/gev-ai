@@ -21,7 +21,8 @@ from tools.system_health import SystemHealthTool
 
 from google.genai import types
 
-class Orchestrator():
+
+class Orchestrator:
     """Orchestrates the workflow of the GevAI"""
 
     config: Config
@@ -54,9 +55,12 @@ class Orchestrator():
         # grounding_tool: types.Tool = types.Tool(
         #     google_search=types.GoogleSearch()
         # )
-        tools = [weather_tool.get_weather_location, health_tool.get_system_health, cat_tool.cat_file]
+        tools = [
+            weather_tool.get_weather_location,
+            health_tool.get_system_health,
+            cat_tool.cat_file,
+        ]
         return tools
-
 
     def define_agent(self, agent_model: str, tools: list[Callable]) -> Agent | None:
         api_key = settings.google_api_key
@@ -69,7 +73,7 @@ class Orchestrator():
 
     def get_system_specs(self, system_info: SystemInfo) -> str | None:
         if shutil.which("fastfetch"):
-            return system_info.get_fastfetch_specs() 
+            return system_info.get_fastfetch_specs()
         elif shutil.which("neofetch"):
             return system_info.get_neofetch_specs()
         else:
@@ -77,15 +81,15 @@ class Orchestrator():
 
     def define_prompt(self, prompt: str) -> str:
         full_prompt: str = f"""
-        ** System specs ** 
+        ** System specs **
         {self.system_specs}
 
         ** Files in pwd **
         {self.files_in_pwd}
-        
-        ** Terminal history** 
+
+        ** Terminal history**
         {self.terminal_history}
-        
+
         ** Question **
         {prompt}
         """
@@ -94,6 +98,5 @@ class Orchestrator():
 
     def call_agent(self, prompt: str) -> types.GenerateContentResponse | None:
         if self.agent != None:
-            return self.agent.call_agent(self.define_prompt(prompt)) 
+            return self.agent.call_agent(self.define_prompt(prompt))
         return None
-
