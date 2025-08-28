@@ -21,14 +21,10 @@ def main(args: list[str]) -> None:
         )
         return
 
-    orchestrator: Orchestrator = Orchestrator(
-        config=config, agent_model="gemini-2.5-flash-lite"
-    )
-
     user_prompt: str = " ".join(args[1:])
-    response = orchestrator.call_agent(user_prompt)
-    if response != None:
-        print(response.text)
+    orchestrator: Orchestrator = Orchestrator(config=config)
+
+    orchestrator.start_workflow(user_prompt=user_prompt)
 
 
 if __name__ == "__main__":
