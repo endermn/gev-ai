@@ -1,13 +1,13 @@
 from typing import Callable
 
-from core.interfaces import Agent
-from prompts.gemini_system_prompt import system_prompt
+from agents.interfaces import Agent
+from prompts.main_agent_prompt import system_prompt
 
 from google.genai import types
 from google import genai
 
 
-class GeminiAgent(Agent):
+class BaseAgent(Agent):
     client: genai.Client
     tools: list[Callable]
 
