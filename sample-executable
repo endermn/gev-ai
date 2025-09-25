@@ -1,0 +1,5 @@
+#!/bin/bash
+cd ~/Documents/Projects/gev-ai/
+source .venv/bin/activate
+python gev-ai/main.py "$@"
+cd - > /dev/null 2>&1
