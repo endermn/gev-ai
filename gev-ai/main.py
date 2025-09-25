@@ -10,7 +10,7 @@ history_parser: HistoryParser = HistoryParser()
 
 def main(args: list[str]) -> None:
     if len(args) < 2:
-        print("Usage: gevai <your query>")
+        print("Please provide a query. Use 'gevai help' for more information.")
         sys.exit(1)
     if args[1] == "config" and len(args) >= 3:
         config.change_config(setting=args[2:][0], history_parser=history_parser)
@@ -19,6 +19,11 @@ def main(args: list[str]) -> None:
         print(
             "To set path to terminal history use gevai config history='path_to_history_file'"
         )
+        return
+    elif args[1] == "help":
+        print("Usage: gevai <your query>")
+        print("To set path to terminal history use gevai config history='path_to_history_file'")
+        print("If it's your first time using gevai, please run the installation script first.")
         return
 
     user_prompt: str = " ".join(args[1:])
