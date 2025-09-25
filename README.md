@@ -12,6 +12,10 @@ Here's a breakdown of its key features and structure:
 *   **Extensible Tooling:** Designed with a clear structure for adding new tools and functionalities.
 
 ## Contributing:
+Contributions are welcome!
+Please fork the repository and submit a pull request with your changes in a new branch.
+Ensure that your code adheres to the existing style and includes tests for new features.
+
 
 ### Project Structure:
 
