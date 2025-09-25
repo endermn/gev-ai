@@ -1,6 +1,8 @@
 This project, Gev-AI, is a terminal assistant designed to help users interact with their systems and access information efficiently.
 It's built with Python and leverages generative AI models for its core functionality.
 
+![t-rec](https://github.com/user-attachments/assets/d22bec44-a3bf-41dd-8825-7d6b72afa3f3)
+
 Here's a breakdown of its key features and structure:
 
 ### Features:
