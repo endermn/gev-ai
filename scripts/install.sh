@@ -26,6 +26,7 @@ python gev-ai/main.py \"\$@\"
 deactivate
 cd - > /dev/null 2>&1
 "
+
 if [ ! -d "$INSTALL_DIR" ]; then
     echo "Installation directory $INSTALL_DIR does not exist."
     echo "Please create it or ensure it's in your system's PATH."

@@ -22,7 +22,7 @@ def main(args: list[str]) -> None:
         return
     elif args[1] == "help":
         print("Usage: gevai <your query>")
-        print("To set path to terminal history use gevai config history='path_to_history_file'")
+        print("To set path to terminal history use gevai config history='path_to_history_file' (set history='default' to reset to default path)")
         print("If it's your first time using gevai, please run the installation script first.")
         return
 

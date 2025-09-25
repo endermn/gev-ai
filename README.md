@@ -67,3 +67,9 @@ The project relies on the following key Python libraries:
     ```bash
     gevai <your query>
     ```
+
+## Roadmap:
+
+*   **Fix Weather Tool:** Currently taking queries for time when it should only be called for weather-related queries.
+*   **Enhanced Tooling:** Adding more tools for various functionalities.
+*   **Local DB Integration:** Implementing a local database for storing resolved issues for future reference.
