@@ -55,7 +55,10 @@ The project relies on the following key Python libraries:
     pip install poetry
     poetry install
     ```
-2. You might need to add gevai as an executable command in your terminal.
+2.  **Run installation script:**
+    ```bash
+    ./scripts/install.sh
+    ```
 3.  **Configure:** Set up your environment variables or modify the configuration files as needed. Specifically, you might need to set your API keys for the generative AI model. You can also configure the path to your terminal history using:
     ```bash
     gevai config history='path/to/your/terminal/history'
