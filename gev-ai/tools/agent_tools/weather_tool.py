@@ -1,4 +1,4 @@
-from tools.interfaces import Tool
+from .interfaces import Tool
 import subprocess
 
 

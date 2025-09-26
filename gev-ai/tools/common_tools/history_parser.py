@@ -2,7 +2,7 @@ import os
 from settings.settings import settings
 
 
-class HistoryParser:
+class TerminalHistoryParser:
     def _get_default_history_path(self) -> str:
         shell = settings.shell.lower()
 

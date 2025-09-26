@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from google.genai import types
 
 
 class SystemInfoInterface(ABC):

@@ -2,7 +2,7 @@ import psutil
 
 from typing import Any
 
-from tools.interfaces import Tool
+from .interfaces import Tool
 
 
 class SystemHealthTool(Tool):

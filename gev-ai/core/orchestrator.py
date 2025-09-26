@@ -1,23 +1,22 @@
-from re import search
 import shutil
 import sys
 
 from settings.settings import settings
 
 from services.system_info import SystemInfo
-from utils.interfaces import SystemInfoInterface
+from tools.common_tools.interfaces import SystemInfoInterface
 from settings.config import Config
-from utils.history_parser import HistoryParser
+from tools.common_tools.history_parser import TerminalHistoryParser
 
 from agents.interfaces import Agent
 from agents.main_agent import BaseAgent
 from agents.google_search_agent import GoogleSearchAgent
 
-from tools.interfaces import Tool
+from tools.agent_tools.interfaces import Tool
 
-from tools.read_files import CatFile
-from tools.weather_tool import WeatherTool
-from tools.system_health import SystemHealthTool
+from tools.agent_tools.read_files import CatFile
+from tools.agent_tools.weather_tool import WeatherTool
+from tools.agent_tools.system_health import SystemHealthTool
 
 
 from google.genai import types
@@ -43,7 +42,7 @@ class Orchestrator:
         self.files_in_pwd = system_info.get_pwd_files()
         self.system_specs = self.get_system_specs(system_info=system_info)
 
-        history_parser: HistoryParser = HistoryParser()
+        history_parser: TerminalHistoryParser = TerminalHistoryParser()
         self.terminal_history = history_parser.get_terminal_history(self.config)
 
         api_key = settings.google_api_key
@@ -70,7 +69,7 @@ class Orchestrator:
 
     def start_workflow(self, user_prompt: str) -> None:
         response = self.call_agent(agent=self.main_agent, prompt=user_prompt)
-        if response == None:
+        if response is None:
             return
         match response.text:
             case "google_search_agent":
@@ -78,7 +77,7 @@ class Orchestrator:
                 search_results = self.call_agent(
                     agent=self.search_agent, prompt=user_prompt
                 )
-                if search_results != None:
+                if search_results is not None:
                     print(search_results.text)
             case _:
                 print(response.text)
@@ -111,6 +110,6 @@ class Orchestrator:
     def call_agent(
         self, agent: Agent | None, prompt: str
     ) -> types.GenerateContentResponse | None:
-        if agent != None:
+        if agent is not None:
             return agent.call_agent(self.define_prompt(prompt))
         return None
