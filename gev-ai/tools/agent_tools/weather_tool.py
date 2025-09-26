@@ -1,4 +1,4 @@
-from tools.agent_tools.interfaces import Tool
+from .interfaces import Tool
 import subprocess
 
 
