@@ -1,11 +1,11 @@
 import sys
 
 from settings.config import Config
-from utils.history_parser import HistoryParser
+from tools.common_tools.history_parser import TerminalHistoryParser
 from core.orchestrator import Orchestrator
 
 config: Config = Config()
-history_parser: HistoryParser = HistoryParser()
+history_parser: TerminalHistoryParser = TerminalHistoryParser()
 
 
 def main(args: list[str]) -> None:

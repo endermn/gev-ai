@@ -1,4 +1,4 @@
-from tools.interfaces import Tool
+from tools.agent_tools.interfaces import Tool
 
 
 class CatFile(Tool):

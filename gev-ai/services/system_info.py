@@ -1,6 +1,6 @@
 import subprocess
 import re
-from utils.interfaces import SystemInfoInterface
+from tools.common_tools.interfaces import SystemInfoInterface
 
 
 class SystemInfo(SystemInfoInterface):

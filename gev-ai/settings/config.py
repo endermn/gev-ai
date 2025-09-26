@@ -1,6 +1,6 @@
 import os
 import configparser
-from utils.history_parser import HistoryParser
+from tools.common_tools.history_parser import TerminalHistoryParser
 from settings.settings import settings
 
 
@@ -25,7 +25,7 @@ class Config:
         with open(self.config_file, "w") as file:
             config.write(file)
 
-    def change_config(self, history_parser: HistoryParser, setting: str) -> None:
+    def change_config(self, history_parser: TerminalHistoryParser, setting: str) -> None:
         default_value = history_parser._get_default_history_path()
 
         if "=" in setting:
