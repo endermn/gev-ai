@@ -69,7 +69,7 @@ class Orchestrator:
 
     def start_workflow(self, user_prompt: str) -> None:
         response = self.call_agent(agent=self.main_agent, prompt=user_prompt)
-        if response == None:
+        if response is None:
             return
         match response.text:
             case "google_search_agent":
@@ -77,7 +77,7 @@ class Orchestrator:
                 search_results = self.call_agent(
                     agent=self.search_agent, prompt=user_prompt
                 )
-                if search_results != None:
+                if search_results is not None:
                     print(search_results.text)
             case _:
                 print(response.text)
@@ -110,6 +110,6 @@ class Orchestrator:
     def call_agent(
         self, agent: Agent | None, prompt: str
     ) -> types.GenerateContentResponse | None:
-        if agent != None:
+        if agent is not None:
             return agent.call_agent(self.define_prompt(prompt))
         return None
