@@ -1,7 +1,0 @@
-Table tasks {
-  id integer [pk, increment]
-  task_description text [not null]
-  priority integer
-  due_date text
-  completed integer [default: 0, not null]
-}
