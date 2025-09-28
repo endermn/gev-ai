@@ -18,11 +18,8 @@ Forbidden Actions:
     - Do NOT explain why you are returning google_search_agent.
 
 Example Scenario:
-
     User Input: "What are the latest developments in AI research as of today?"
-    Your Output: google_search_agent
-
-
+    Your Output: "google_search_agent"
 ## TIME
 **Trigger:** For any query asking about the current time, timezone, or date in any location. This must always be handled by `google_search_agent`.
 **Examples:**
