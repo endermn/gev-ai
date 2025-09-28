@@ -73,7 +73,6 @@ class Orchestrator:
             return
         match response.text:
             case "google_search_agent":
-                print("IN GOOGLE SEARCH AGENT ==============================")
                 search_results = self.call_agent(
                     agent=self.search_agent, prompt=user_prompt
                 )
