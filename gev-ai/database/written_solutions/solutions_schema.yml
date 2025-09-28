@@ -1,0 +1,14 @@
+Table issues {
+  id integer [pk, increment]
+  issue_title text [not null]
+  issue_description text
+  tags text
+  created_at timestamp
+}
+
+Table solutions {
+  id integer [pk, increment]
+  issue_id integer [not null]
+  solution_description text [not null]
+  created_at timestamp
+}
