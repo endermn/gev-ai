@@ -21,7 +21,6 @@ from tools.agent_tools.system_health import SystemHealthTool
 
 from google.genai import types
 
-
 class Orchestrator:
 	"""Orchestrates the workflow of the GevAI"""
 
@@ -71,15 +70,15 @@ class Orchestrator:
 		response = self.call_agent(agent=self.main_agent, prompt=user_prompt)
 		if response is None:
 			return
-		match response.text:
-			case "google_search_agent":
+
+		if "google_search_agent" in response.text:
 				search_results = self.call_agent(
 					agent=self.search_agent, prompt=user_prompt
 				)
 				if search_results is not None:
 					print(search_results.text)
-			case _:
-				print(response.text)
+		else:
+			print(response.text)
 
 	def get_system_specs(self, system_info: SystemInfo) -> str | None:
 		if shutil.which("fastfetch"):
