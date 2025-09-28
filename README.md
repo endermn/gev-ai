@@ -47,20 +47,21 @@ The project is organized into several key directories:
 
 ### Dependencies:
 
-The project relies on the following key Python libraries:
-
-*   `google-genai`: For interacting with Google's generative AI models.
-*   `python-dotenv`: To load environment variables from a `.env` file.
-*   `pydantic-settings`: For managing application settings.
-*   `psutil`: For system and process utilities.
+All project dependencies are in the pyproject.toml file, poetry will install them for you.
 
 ## Getting Started:
 
 1.  **Install Dependencies:**
+    1.1 Install poetry with pip
     ```bash
     pip install poetry
+    ```
+
+    1.2 Let poetry do the rest
+    ```bash
     poetry install
     ```
+
 2.  **Run installation script:**
     ```bash
     ./scripts/install.sh
@@ -76,6 +77,5 @@ The project relies on the following key Python libraries:
 
 ## Roadmap:
 
-*   **Fix Weather Tool:** Currently taking queries for time when it should only be called for weather-related queries.
 *   **Enhanced Tooling:** Adding more tools for various functionalities.
-*   **Local DB Integration:** Implementing a local database for storing resolved issues for future reference.
+*   **Local DB Integration:** Implementing a local database for storing issues you face and solve so you never have to face the same issue twice
