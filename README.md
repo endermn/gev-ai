@@ -34,11 +34,12 @@ The project is organized into several key directories:
     *   **`settings/`**: Manages project configuration.
         *   `config.py`: Handles configuration loading and changes.
     *   **`tools/`**: Contains various utility tools that the AI can leverage.
-        *   `weather_tool.py`: A tool for fetching weather information.
-        *   `system_health.py`: (Presumably) a tool for checking system health.
-        *   `read_files.py`: (Presumably) a tool for reading file contents.
-    *   **`utils/`**: Provides utility functions and helpers.
-        *   `history_parser.py`: Parses terminal history for context.
+        *    **`agent_tools**
+            *   `weather_tool.py`: A tool for fetching weather information.
+            *   `system_health.py`: A tool for checking system health.
+            *   `read_files.py`: A tool for reading file contents.
+        *    **`common_tools**
+            *   `history_parser.py`: a tool to parse terminal's history
 *   **`tests/`**: Contains unit and integration tests for the project.
 *   **`example.env`**: An example environment file for configuration.
 *   **`poetry.lock`**: Lock file for Poetry dependency management.
