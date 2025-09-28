@@ -3,11 +3,11 @@ from google.genai import types
 
 
 class Agent(ABC):
-    model: str
+	model: str
 
-    def __init__(self, model: str) -> None:
-        self.model = model
+	def __init__(self, model: str) -> None:
+		self.model = model
 
-    @abstractmethod
-    def call_agent(self, content: str) -> types.GenerateContentResponse | None:
-        pass
+	@abstractmethod
+	def call_agent(self, content: str) -> types.GenerateContentResponse | None:
+		pass
