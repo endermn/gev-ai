@@ -14,12 +14,13 @@ from agents.google_search_agent import GoogleSearchAgent
 
 from tools.agent_tools.interfaces import Tool
 
+from tools.agent_tools.todo import ToDoTool
 from tools.agent_tools.read_files import CatFile
 from tools.agent_tools.weather_tool import WeatherTool
 from tools.agent_tools.system_health import SystemHealthTool
 
 
-from google.genai import types
+from google.genai import types, errors
 
 class Orchestrator:
 	"""Orchestrates the workflow of the GevAI"""
@@ -52,10 +53,15 @@ class Orchestrator:
 		weather_tool: Tool = WeatherTool()
 		health_tool: Tool = SystemHealthTool()
 		cat_tool: Tool = CatFile()
+		todo_tool: Tool = ToDoTool()
+
 		main_tools = [
 			weather_tool.get_weather_location,
 			health_tool.get_system_health,
 			cat_tool.cat_file,
+			todo_tool.add_task,
+			todo_tool.view_tasks,
+			todo_tool.remove_task,
 		]
 
 		self.main_agent = BaseAgent(
@@ -108,6 +114,11 @@ class Orchestrator:
 	def call_agent(
 		self, agent: Agent | None, prompt: str
 	) -> types.GenerateContentResponse | None:
-		if agent is not None:
-			return agent.call_agent(self.define_prompt(prompt))
+		try:
+			if agent is not None:
+				return agent.call_agent(self.define_prompt(prompt))
+		except errors.ServerError as e:
+			print(f"A server error occurred: {e.message}")
+		except errors.APIError as e:
+			print(f"An API error occurred: {e.message}")
 		return None
