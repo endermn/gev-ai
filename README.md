@@ -35,11 +35,13 @@ The project is organized into several key directories:
 	*   **`settings/`**: Manages project configuration.
 		*   `config.py`: Handles configuration loading and changes.
 	*   **`tools/`**: Contains various utility tools that the AI can leverage.
-		*    **`agent_tools**
+		*   **`agent_tools**
 			*   `weather_tool.py`: A tool for fetching weather information.
 			*   `system_health.py`: A tool for checking system health.
 			*   `read_files.py`: A tool for reading file contents.
-		*    **`common_tools**
+
+		*   **`common_tools**
+
 			*   `history_parser.py`: a tool to parse terminal's history
 *   **`tests/`**: Contains unit and integration tests for the project.
 *   **`example.env`**: An example environment file for configuration.
