@@ -77,7 +77,7 @@ class Orchestrator:
 		if response is None:
 			return
 
-		if "google_search_agent" in response.text:
+		if response.text and "google_search_agent" in response.text:
 				search_results = self.call_agent(
 					agent=self.search_agent, prompt=user_prompt
 				)

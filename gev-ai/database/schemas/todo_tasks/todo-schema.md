@@ -11,9 +11,6 @@ erDiagram
     tasks {
         int id PK "increment"
         text task_description "not null"
-        int priority
-        text due_date
-        int completed "default: 0, not null"
     }
 ```
 
@@ -21,6 +18,3 @@ erDiagram
 
 *   **id**: A unique integer for each task that automatically increments. It serves as the primary key (`PK`).
 *   **task\_description**: The text describing the task. This field cannot be empty (`not null`).
-*   **priority**: An integer representing the task's priority level.
-*   **due\_date**: The date when the task is due, stored as text.
-*   **completed**: An integer flag to mark a task as complete. It defaults to `0` (not complete) and cannot be empty (`not null`).
