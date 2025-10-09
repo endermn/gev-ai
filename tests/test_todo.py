@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 """Test script for the ToDoTool functionality"""
 
 import sys
@@ -12,10 +10,8 @@ def test_todo_functionality():
     
     print("Testing ToDoTool functionality...")
     
-    # Initialize the tool
     todo_tool = ToDoTool()
     
-    # Test adding tasks
     print("\n1. Adding tasks:")
     result1 = todo_tool.add_task("Complete the project")
     print(f"   Result: {result1}")
@@ -26,22 +22,18 @@ def test_todo_functionality():
     result3 = todo_tool.add_task("Run tests")
     print(f"   Result: {result3}")
     
-    # Test viewing tasks
     print("\n2. Viewing tasks:")
     tasks = todo_tool.view_tasks()
     print(f"   {tasks}")
     
-    # Test removing a task
     print("\n3. Removing task with ID 2:")
     remove_result = todo_tool.remove_task(2)
     print(f"   Result: {remove_result}")
     
-    # Test viewing tasks after removal
     print("\n4. Viewing tasks after removal:")
     tasks_after = todo_tool.view_tasks()
     print(f"   {tasks_after}")
     
-    # Test removing non-existent task
     print("\n5. Trying to remove non-existent task (ID 999):")
     invalid_remove = todo_tool.remove_task(999)
     print(f"   Result: {invalid_remove}")
