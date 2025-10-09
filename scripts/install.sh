@@ -22,7 +22,7 @@ echo "Installing '$EXECUTABLE_NAME' to $INSTALL_PATH..."
 SCRIPT_CONTENT="#!/bin/bash
 cd \"$PROJECT_PATH\"
 source .venv/bin/activate
-python gev-ai/main.py \"\$@\"
+python gev_ai/main.py \"\$@\"
 deactivate
 cd - > /dev/null 2>&1
 "

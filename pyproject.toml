@@ -1,5 +1,5 @@
 [project]
-name = "gev-ai"
+name = "gev_ai"
 version = "0.1.0"
 description = ""
 authors = [
@@ -14,8 +14,8 @@ dependencies = [
     "psutil (>=7.0.0,<8.0.0)",
     "pre-commit (>=4.3.0,<5.0.0)",
     "sqlalchemy (>=2.0.43,<3.0.0)",
+    "alembic (>=1.16.5,<2.0.0)",
 ]
-
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
@@ -23,5 +23,5 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 packages = [
-    {include ="gev-ai"}
+    {include ="gev_ai"}
 ]
