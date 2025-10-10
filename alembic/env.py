@@ -7,7 +7,7 @@ from alembic import context
 
 from gev_ai.database.models.base import Base
 # Import all models to ensure they are registered with Base.metadata
-from gev_ai.database.models import Tasks, Issues, Solutions
+from gev_ai.database.models import Tasks, Issues, Solutions # noqa: F401
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

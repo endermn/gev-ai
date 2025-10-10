@@ -114,13 +114,13 @@ class Orchestrator:
     def call_agent(
         self, agent: Agent | None, prompt: str
     ) -> types.GenerateContentResponse | None:
-        # try:
-        if agent is not None:
-            return agent.call_agent(self.define_prompt(prompt))
-        # except errors.ServerError as e:
-        #     print(f"A server error occurred: {e.message}")
-        # except errors.APIError as e:
-        #     print(f"An API error occurred: {e.message}")
-        # except Exception as e:
-        #     return None
-            # print(f"An unexpected error occurred: {str(e)}")
+        try:
+            if agent is not None:
+                return agent.call_agent(self.define_prompt(prompt))
+        except errors.ServerError as e:
+            print(f"A server error occurred: {e.message}")
+        except errors.APIError as e:
+            print(f"An API error occurred: {e.message}")
+        except Exception as e:
+            return None
+            print(f"An unexpected error occurred: {str(e)}")
