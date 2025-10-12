@@ -21,6 +21,11 @@ from tools.agent_tools.system_health import SystemHealthTool
 
 from google.genai import types, errors
 
+import logging
+
+from services.logger import GevaiLogger
+
+logger: logging.Logger = GevaiLogger(name=__name__, file="gevai.log").get_logger()
 
 class Orchestrator:
     """Orchestrates the workflow of the GevAI"""
@@ -40,7 +45,7 @@ class Orchestrator:
 
         system_info: SystemInfoInterface = SystemInfo()
         self.files_in_pwd = system_info.get_pwd_files()
-        self.system_specs = self.get_system_specs(system_info=system_info)
+        self.system_specs = system_info.get_system_specs()
 
         history_parser: TerminalHistoryParser = TerminalHistoryParser()
         self.terminal_history = history_parser.get_terminal_history(self.config)
@@ -48,6 +53,7 @@ class Orchestrator:
         api_key = settings.google_api_key
         if not api_key:
             print("Error: GENAI_API_KEY environment variable not set.")
+            logger.error("GENAI_API_KEY environment variable not set")
             sys.exit(1)
 
         weather_tool: Tool = WeatherTool()
@@ -73,28 +79,32 @@ class Orchestrator:
         )
 
     def start_workflow(self, user_prompt: str) -> None:
+        logger.info(f"Starting workflow")
+        logger.info(f"User prompt: {user_prompt}")
+
         response = self.call_agent(agent=self.main_agent, prompt=user_prompt)
         if response is None:
             return
 
         if response.text and "google_search_agent" in response.text:
-            search_results = self.call_agent(
+            search_results: types.GenerateContentResponse | None = self.call_agent(
                 agent=self.search_agent, prompt=user_prompt
             )
             if search_results is not None:
                 print(search_results.text)
+                logger.info(search_results)
+                logger.info(search_results.text)
+
         else:
             print(response.text)
+            logger.info(response)
+            logger.info(response.text)
 
-    def get_system_specs(self, system_info: SystemInfo) -> str | None:
-        if shutil.which("fastfetch"):
-            return system_info.get_fastfetch_specs()
-        elif shutil.which("neofetch"):
-            return system_info.get_neofetch_specs()
-        else:
-            return None
+
 
     def define_prompt(self, prompt: str) -> str:
+        logger.info(f"Defining prompt")
+
         full_prompt: str = f"""
         ** System specs **
         {self.system_specs}
@@ -119,8 +129,11 @@ class Orchestrator:
                 return agent.call_agent(self.define_prompt(prompt))
         except errors.ServerError as e:
             print(f"A server error occurred: {e.message}")
+            logger.error(f"Server error: {e.message}")
         except errors.APIError as e:
             print(f"An API error occurred: {e.message}")
+            logger.error(f"API error: {e.message}")
         except Exception as e:
-            return None
             print(f"An unexpected error occurred: {str(e)}")
+            logger.error(f"Unexpected error: {str(e)}")
+            return None

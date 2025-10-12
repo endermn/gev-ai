@@ -1,6 +1,8 @@
 __pycache__/
 **.db
+.venv/
+
 .env
 .DS_Store
-.venv/
+gevai.log
 poetry.lock

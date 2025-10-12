@@ -1,7 +1,14 @@
 from sqlalchemy.orm import Session
+from tools.tool_utils import tools
+
 from .interfaces import Tool
 from gev_ai.database.config.database_manager import database_manager
 from gev_ai.database.models.todo_tasks import Tasks
+import logging
+
+from services.logger import GevaiLogger
+
+logger: logging.Logger = GevaiLogger(name=__name__, file="gevai.log").get_logger()
 
 
 class ToDoTool(Tool):
@@ -19,6 +26,7 @@ class ToDoTool(Tool):
         self.todo_list = []
         self.engine = database_manager.engine 
 
+    @tools
     def add_task(self, task_description: str) -> str:
         try:
             with Session(self.engine) as session:
@@ -26,10 +34,13 @@ class ToDoTool(Tool):
                 session.add(new_task)
                 session.commit()
         except Exception as e:
-            print(f"Error adding task: {e}")
+            print(f"Error adding task for more information check gevai.log")
+            logger.error(f"Failed to add todo task: {e}")
+
             return f"Error adding task: {e}"
         return f'Task "{task_description}" added to your to-do list.'
 
+    @tools
     def view_tasks(self) -> str:
         try:
             with Session(self.engine) as session:
@@ -41,9 +52,11 @@ class ToDoTool(Tool):
                 )
             return f"Your to-do list:\n{tasks}"
         except Exception as e:
-            print(f"Error viewing tasks: {e}")
+            print(f"Error viewing todo list for more information check gevai.log")
+            logger.error(f"Failed to view todo list: {e}")
             return "Error retrieving tasks."
 
+    @tools
     def remove_task(self, task_number: int) -> str:
         try:
             with Session(self.engine) as session:
@@ -55,5 +68,6 @@ class ToDoTool(Tool):
                 else:
                     return "Invalid task number."
         except Exception as e:
-            print(f"Error removing task: {e}")
+            print(f"Error removing task check gevai.log for more information")
+            logger.error(f"Failed to remove todo task: {e}")
             return f"Error removing task: {e}"

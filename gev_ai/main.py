@@ -1,12 +1,15 @@
 import sys
+import logging
 
 from settings.config import Config
 from tools.common_tools.history_parser import TerminalHistoryParser
 from core.orchestrator import Orchestrator
+from services.logger import GevaiLogger
 
 config: Config = Config()
 history_parser: TerminalHistoryParser = TerminalHistoryParser()
 
+logger: logging.Logger = GevaiLogger(name=__name__, file="gevai.log").get_logger()
 
 def main(args: list[str]) -> None:
 	if len(args) < 2:
