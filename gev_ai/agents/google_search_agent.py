@@ -5,6 +5,7 @@ from google.genai import types
 from google import genai
 
 from tools.tool_utils import logger
+from typing import Optional
 
 
 class GoogleSearchAgent(Agent):
@@ -17,7 +18,7 @@ class GoogleSearchAgent(Agent):
         grounding_tool = types.Tool(google_search=types.GoogleSearch())
         self.tools = [grounding_tool]
 
-    def call_agent(self, content: str) -> types.GenerateContentResponse | None:
+    def call_agent(self, content: str) -> Optional[types.GenerateContentResponse]:
         logger.info(f"GoogleSearchAgent called with content: {content}")
         response = self.client.models.generate_content(
             model=self.model,

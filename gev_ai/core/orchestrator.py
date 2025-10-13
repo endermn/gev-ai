@@ -21,23 +21,25 @@ from tools.agent_tools.system_health import SystemHealthTool
 
 from google.genai import types, errors
 
+from typing import Optional
 import logging
 
 from services.logger import GevaiLogger
 
 logger: logging.Logger = GevaiLogger(name=__name__, file="gevai.log").get_logger()
 
+
 class Orchestrator:
     """Orchestrates the workflow of the GevAI"""
 
     config: Config
 
-    system_specs: str | None
-    files_in_pwd: str | None
+    system_specs: Optional[str]
+    files_in_pwd: Optional[str]
     terminal_history: str
 
-    main_agent: Agent | None
-    search_agent: Agent | None
+    main_agent: Optional[Agent]
+    search_agent: Optional[Agent]
 
     def __init__(self, config: Config) -> None:
         """Initializes the orchestrator and its main components"""
@@ -87,7 +89,7 @@ class Orchestrator:
             return
 
         if response.text and "google_search_agent" in response.text:
-            search_results: types.GenerateContentResponse | None = self.call_agent(
+            search_results: Optional[types.GenerateContentResponse] = self.call_agent(
                 agent=self.search_agent, prompt=user_prompt
             )
             if search_results is not None:
@@ -99,8 +101,6 @@ class Orchestrator:
             print(response.text)
             logger.info(response)
             logger.info(response.text)
-
-
 
     def define_prompt(self, prompt: str) -> str:
         logger.info(f"Defining prompt")
@@ -122,8 +122,8 @@ class Orchestrator:
         return full_prompt
 
     def call_agent(
-        self, agent: Agent | None, prompt: str
-    ) -> types.GenerateContentResponse | None:
+        self, agent: Optional[Agent], prompt: str
+    ) -> Optional[types.GenerateContentResponse]:
         try:
             if agent is not None:
                 return agent.call_agent(self.define_prompt(prompt))

@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from google.genai import types
+from typing import Optional
 
 
 class Agent(ABC):
@@ -9,5 +10,5 @@ class Agent(ABC):
 		self.model = model
 
 	@abstractmethod
-	def call_agent(self, content: str) -> types.GenerateContentResponse | None:
+	def call_agent(self, content: str) -> Optional[types.GenerateContentResponse]:
 		pass

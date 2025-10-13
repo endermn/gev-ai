@@ -32,7 +32,7 @@ class ToDoTool(Tool):
                 session.add(new_task)
                 session.commit()
         except Exception as e:
-            print(f"Error adding task for more information check gevai.log")
+            print("Error adding task for more information check gevai.log")
             logger.error(f"Failed to add todo task: {e}")
 
             return f"Error adding task: {e}"
@@ -50,7 +50,7 @@ class ToDoTool(Tool):
                 )
             return f"Your to-do list:\n{tasks}"
         except Exception as e:
-            print(f"Error viewing todo list for more information check gevai.log")
+            print("Error viewing todo list for more information check gevai.log")
             logger.error(f"Failed to view todo list: {e}")
             return "Error retrieving tasks."
 
@@ -66,6 +66,6 @@ class ToDoTool(Tool):
                 else:
                     return "Invalid task number."
         except Exception as e:
-            print(f"Error removing task check gevai.log for more information")
+            print("Error removing task check gevai.log for more information")
             logger.error(f"Failed to remove todo task: {e}")
             return f"Error removing task: {e}"
