@@ -1,6 +1,4 @@
 from sqlalchemy.orm import Session
-from tools.tool_utils import tools
-
 from .interfaces import Tool
 from gev_ai.database.config.database_manager import database_manager
 from gev_ai.database.models.todo_tasks import Tasks
@@ -26,8 +24,8 @@ class ToDoTool(Tool):
         self.todo_list = []
         self.engine = database_manager.engine 
 
-    @tools
     def add_task(self, task_description: str) -> str:
+        logger.info(f"Tool called - Adding task: {task_description}")
         try:
             with Session(self.engine) as session:
                 new_task = Tasks(task_description=task_description)
@@ -40,8 +38,8 @@ class ToDoTool(Tool):
             return f"Error adding task: {e}"
         return f'Task "{task_description}" added to your to-do list.'
 
-    @tools
     def view_tasks(self) -> str:
+        logger.info("Tool called - Viewing tasks")
         try:
             with Session(self.engine) as session:
                 tasks_list = session.query(Tasks).all()
@@ -56,8 +54,8 @@ class ToDoTool(Tool):
             logger.error(f"Failed to view todo list: {e}")
             return "Error retrieving tasks."
 
-    @tools
     def remove_task(self, task_number: int) -> str:
+        logger.info(f"Tool called - Removing task number: {task_number}")
         try:
             with Session(self.engine) as session:
                 task = session.query(Tasks).filter(Tasks.id == task_number).first()

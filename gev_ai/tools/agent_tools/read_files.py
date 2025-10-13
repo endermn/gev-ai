@@ -1,5 +1,5 @@
 from .interfaces import Tool
-from tools.tool_utils import tools
+from tools.tool_utils import logger
 
 
 class CatFile(Tool):
@@ -11,7 +11,7 @@ class CatFile(Tool):
     def description(self) -> str:
         return "returns the contents of the given file"
 
-    @tools
     def cat_file(self, file: str) -> str:
+        logger.info(f"Tool 'cat_file' called with file: {file}")
         with open(file, "r") as f:
             return f.read()

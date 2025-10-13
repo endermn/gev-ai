@@ -1,5 +1,5 @@
 import os
-from tools.tool_utils import tools
+from tools.tool_utils import logger
 from settings.settings import settings
 
 
@@ -12,7 +12,6 @@ class TerminalHistoryParser:
     def description(self) -> str:
         return "parses the terminal history and returns the last 10 commands starting with a hyphen"
 
-    @tools
     def _get_default_history_path(self) -> str:
         shell = settings.shell.lower()
 
@@ -28,8 +27,8 @@ class TerminalHistoryParser:
                 settings.app_data,
                 "Microsoft\\Windows\\PowerShell\\PSReadLine\\ConsoleHost_history.txt",
             )
-    @tools
     def get_terminal_history(self, config) -> str:
+        logger.info("Tool 'get_terminal_history' called")
         config_parser = config.read_config()
 
         path = config_parser.get(

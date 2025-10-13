@@ -1,6 +1,7 @@
 from .interfaces import Tool
 import subprocess
-from tools.tool_utils import tools
+
+from tools.tool_utils import logger
 
 
 class WeatherTool(Tool):
@@ -12,9 +13,8 @@ class WeatherTool(Tool):
     def description(self) -> str:
         return "gets the current weather"
 
-    @tools
     def get_weather_location(self, location: str) -> str:
-        print("In weather tool")
+        logger.info(f"Tool 'get_weather_location' called with location: {location}")
         try:
             command = ["curl", f"wttr.in/{location}"]
 

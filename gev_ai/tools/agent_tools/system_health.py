@@ -1,10 +1,10 @@
 import psutil
-from tools.tool_utils import tools
 
 from typing import Any
 
 from .interfaces import Tool
 
+from tools.tool_utils import logger
 
 class SystemHealthTool(Tool):
     @property
@@ -15,8 +15,8 @@ class SystemHealthTool(Tool):
     def description(self) -> str:
         return "returns the health of the system (memory usage, disk usage...)"
 
-    @tools
     def get_system_health(self) -> dict[str, Any]:
+        logger.info("Tool 'get_system_health' called")
         cpu_percent = psutil.cpu_percent(interval=1)
 
         mem = psutil.virtual_memory()
