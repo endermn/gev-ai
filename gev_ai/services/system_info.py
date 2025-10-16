@@ -15,7 +15,7 @@ class SystemInfo(SystemInfoInterface):
             output = subprocess.check_output(["fastfetch"], text=True)
             clean_output = re.sub(r"\x1B\[[0-?]*[ -/]*[@-~]", "", output)
         except Exception as e:
-            print("Error running fastfetch")
+            print("Error: Failed to run fastfetch")
             logger.error(f"Error running fastfetch: {e}")
             clean_output = None
         return clean_output
@@ -25,8 +25,8 @@ class SystemInfo(SystemInfoInterface):
             output = subprocess.check_output(["neofetch", "--stdout"], text=True)
             clean_output = re.sub(r"\x1B\[[0-?]*[ -/]*[@-~]", "", output)
         except Exception as e:
-            print("Error running neofetch")
-            logger.error(f"Error running neofetch: {e}")
+            print("Error: Failed to run neofetch")
+            logger.error(f"Error: Failed to run neofetch: {e}")
             clean_output = None
         return clean_output
 
@@ -35,7 +35,7 @@ class SystemInfo(SystemInfoInterface):
             output = subprocess.check_output(["ls", "-R"], text=True)
         except Exception as e:
             print("Error running ls -R")
-            logger.error(f"Error running ls: {e}")
+            logger.error(f"Error running ls -R: {e}")
             output = None
         return output
 

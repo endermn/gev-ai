@@ -1,4 +1,3 @@
-import shutil
 import sys
 
 from settings.settings import settings
@@ -81,7 +80,7 @@ class Orchestrator:
         )
 
     def start_workflow(self, user_prompt: str) -> None:
-        logger.info(f"Starting workflow")
+        logger.info("Starting workflow")
         logger.info(f"User prompt: {user_prompt}")
 
         response = self.call_agent(agent=self.main_agent, prompt=user_prompt)
@@ -103,7 +102,7 @@ class Orchestrator:
             logger.info(response.text)
 
     def define_prompt(self, prompt: str) -> str:
-        logger.info(f"Defining prompt")
+        logger.info("Defining prompt")
 
         full_prompt: str = f"""
         ** System specs **

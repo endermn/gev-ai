@@ -32,40 +32,41 @@ class ToDoTool(Tool):
                 session.add(new_task)
                 session.commit()
         except Exception as e:
-            print("Error adding task for more information check gevai.log")
+            print("Error: Adding todo task failed. For more information please check gevai.log")
             logger.error(f"Failed to add todo task: {e}")
 
-            return f"Error adding task: {e}"
+            return ""
         return f'Task "{task_description}" added to your to-do list.'
 
     def view_tasks(self) -> str:
-        logger.info("Tool called - Viewing tasks")
+        logger.info("Tool call - 'view_tasks' called")
         try:
             with Session(self.engine) as session:
                 tasks_list = session.query(Tasks).all()
                 if not tasks_list:
-                    return "Your to-do list is empty."
+                    return "To-do list currently empty."
                 tasks = "\n".join(
                     f"{task.id}. {task.task_description}" for task in tasks_list
                 )
-            return f"Your to-do list:\n{tasks}"
+            return f"Current To-do list:\n{tasks}"
         except Exception as e:
-            print("Error viewing todo list for more information check gevai.log")
+            print("Error: Viewing todo list failed. For more information please check gevai.log")
             logger.error(f"Failed to view todo list: {e}")
-            return "Error retrieving tasks."
+            return ""
 
     def remove_task(self, task_number: int) -> str:
-        logger.info(f"Tool called - Removing task number: {task_number}")
+        logger.info(f"Tool call - Removing task: {task_number}")
         try:
             with Session(self.engine) as session:
                 task = session.query(Tasks).filter(Tasks.id == task_number).first()
                 if task:
                     session.delete(task)
                     session.commit()
-                    return f"Task number {task_number} removed from your to-do list."
+                    return f"Task {task_number} removed from the current To-do list."
                 else:
-                    return "Invalid task number."
+                    logger.debug(f"Invalid task number: {task_number}")
+                    return "Please mention a valid task number to remove."
         except Exception as e:
-            print("Error removing task check gevai.log for more information")
+            print("Error: Removing To-do task failed. For more information please check gevai.log")
             logger.error(f"Failed to remove todo task: {e}")
-            return f"Error removing task: {e}"
+            return ""
