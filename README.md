@@ -8,6 +8,7 @@ Here's a breakdown of its key features and structure:
 ### Features:
 
 *   **AI-Powered Assistance:** Utilizes generative AI models to understand and respond to user queries.
+*   **RAG Terminal History:** Uses Retrieval Augmented Generation (RAG) to provide semantically relevant terminal commands based on your query context, instead of just showing the last N commands. [Learn more](docs/RAG_TERMINAL_HISTORY.md)
 *   **System Information:** Can fetch system specifications and details about the current environment using tools like `fastfetch` and `neofetch`.
 *   **Weather Forecasts:** Integrates with external services (via `curl`) to provide weather information for specified locations.
 *   **Configuration Management:** Allows users to configure the tool, including specifying the path to their terminal history for context.
@@ -42,7 +43,9 @@ The project is organized into several key directories:
 
 		*   **`common_tools**
 
-			*   `history_parser.py`: a tool to parse terminal's history
+			*   `history_parser.py`: a tool to parse terminal's history using RAG for semantic retrieval
+	*   **`database/`**: Database models and configuration.
+		*   `models/terminal_history.py`: Stores terminal commands with semantic embeddings for RAG
 *   **`tests/`**: Contains unit and integration tests for the project.
 *   **`example.env`**: An example environment file for configuration.
 *   **`poetry.lock`**: Lock file for Poetry dependency management.
