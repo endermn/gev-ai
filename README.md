@@ -79,6 +79,24 @@ All project dependencies are in the pyproject.toml file, poetry will install the
 	gevai <your query>
 	```
 
+## Testing:
+
+The project includes a comprehensive test suite using pytest. To run tests:
+
+```bash
+# Run all tests
+poetry run pytest
+
+# Run tests with verbose output
+poetry run pytest -v
+
+# Run specific test files
+poetry run pytest tests/test_interfaces.py
+poetry run pytest tests/test_settings.py
+```
+
+For more details about testing, see [tests/README.md](tests/README.md).
+
 ## Roadmap:
 
 *   **Enhanced Tooling:** Adding more tools for various functionalities.

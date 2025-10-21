@@ -6,3 +6,10 @@ __pycache__/
 .DS_Store
 gevai.log
 poetry.lock
+
+# Test artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+*.pytest_cache
+.tox/
