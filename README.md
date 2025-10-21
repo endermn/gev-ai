@@ -15,7 +15,7 @@ Here's a breakdown of its key features and structure:
 
 ## Contributing:
 
-Contributions are welcome!
+Contributions are very welcome!
 Please fork the repository and submit a pull request with your changes in a new branch.
 Ensure that your code adheres to the existing style and includes tests for new features.
 
