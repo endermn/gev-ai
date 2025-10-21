@@ -6,6 +6,7 @@ from services.system_info import SystemInfo
 from tools.common_tools.interfaces import SystemInfoInterface
 from settings.config import Config
 from tools.common_tools.history_parser import TerminalHistoryParser
+from services.terminal_history_rag import TerminalHistoryRAG
 
 from agents.interfaces import Agent
 from agents.main_agent import BaseAgent
@@ -36,26 +37,33 @@ class Orchestrator:
     system_specs: Optional[str]
     files_in_pwd: Optional[str]
     terminal_history: str
+    user_prompt: Optional[str]
 
     main_agent: Optional[Agent]
     search_agent: Optional[Agent]
+    history_parser: TerminalHistoryParser
 
     def __init__(self, config: Config) -> None:
         """Initializes the orchestrator and its main components"""
         self.config = config
+        self.user_prompt = None
 
         system_info: SystemInfoInterface = SystemInfo()
         self.files_in_pwd = system_info.get_pwd_files()
         self.system_specs = system_info.get_system_specs()
-
-        history_parser: TerminalHistoryParser = TerminalHistoryParser()
-        self.terminal_history = history_parser.get_terminal_history(self.config)
 
         api_key = settings.google_api_key
         if not api_key:
             print("Error: GENAI_API_KEY environment variable not set.")
             logger.error("GENAI_API_KEY environment variable not set")
             sys.exit(1)
+
+        # Initialize RAG service for terminal history
+        rag_service = TerminalHistoryRAG(api_key=api_key)
+        self.history_parser = TerminalHistoryParser(rag_service=rag_service)
+        
+        # Get initial history without specific query
+        self.terminal_history = self.history_parser.get_terminal_history(self.config)
 
         weather_tool: Tool = WeatherTool()
         health_tool: Tool = SystemHealthTool()
@@ -82,6 +90,14 @@ class Orchestrator:
     def start_workflow(self, user_prompt: str) -> None:
         logger.info("Starting workflow")
         logger.info(f"User prompt: {user_prompt}")
+
+        # Store the user prompt for RAG retrieval
+        self.user_prompt = user_prompt
+        
+        # Retrieve relevant terminal history based on user query
+        self.terminal_history = self.history_parser.get_terminal_history(
+            self.config, query=user_prompt
+        )
 
         response = self.call_agent(agent=self.main_agent, prompt=user_prompt)
         if response is None:

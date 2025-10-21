@@ -1,12 +1,15 @@
 import sys
+import os
+
+# Add the gev_ai directory to sys.path for relative imports
+if __name__ == "__main__":
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from settings.config import Config
 from tools.common_tools.history_parser import TerminalHistoryParser
 from core.orchestrator import Orchestrator
 
 config: Config = Config()
-history_parser: TerminalHistoryParser = TerminalHistoryParser()
-
 
 
 def main(args: list[str]) -> None:
@@ -14,6 +17,8 @@ def main(args: list[str]) -> None:
         print("Please provide a query. Use 'gevai help' for more information.")
         sys.exit(1)
     if args[1] == "config" and len(args) >= 3 and "history" in args[2]:
+        # Create a simple history parser for config operations (no RAG needed)
+        history_parser = TerminalHistoryParser()
         config.change_config(setting=args[2:][0], history_parser=history_parser)
         return
     elif args[1] == "config" and len(args) == 2:
