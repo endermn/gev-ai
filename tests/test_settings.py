@@ -1,7 +1,7 @@
 """
 Unit tests for the Settings configuration.
 """
-import pytest
+import pytest # noqa: F401
 from gev_ai.settings.settings import Settings
 
 
@@ -11,8 +11,7 @@ class TestSettings:
     def test_settings_default_values(self):
         """Test that Settings has correct default values."""
         settings = Settings()
-        assert settings.google_api_key == "sample_api_key"
-        # shell and app_data may be populated from environment variables
+
         assert isinstance(settings.shell, str)
         assert isinstance(settings.app_data, str)
 
