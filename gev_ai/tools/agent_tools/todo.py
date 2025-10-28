@@ -70,3 +70,15 @@ class ToDoTool(Tool):
             print("Error: Removing To-do task failed. For more information please check gevai.log")
             logger.error(f"Failed to remove todo task: {e}")
             return ""
+
+    def clear_tasks(self) -> str:
+        logger.info("Tool call - Clearing all tasks")
+        try:
+            with Session(self.engine) as session:
+                num_deleted = session.query(Tasks).delete()
+                session.commit()
+                return f"All tasks cleared from the to-do list. ({num_deleted} tasks removed)"
+        except Exception as e:
+            print("Error: Clearing To-do tasks failed. For more information please check gevai.log")
+            logger.error(f"Failed to clear todo tasks: {e}")
+            return ""

@@ -21,7 +21,8 @@ class BaseAgent(Agent):
             model=self.model,
             contents=content,
             config=types.GenerateContentConfig(
-                system_instruction=system_prompt, tools=self.tools
+                system_instruction=system_prompt, 
+                tools=self.tools,
             ),
         )
 

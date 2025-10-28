@@ -69,6 +69,7 @@ class Orchestrator:
             todo_tool.add_task,
             todo_tool.view_tasks,
             todo_tool.remove_task,
+            todo_tool.clear_tasks,
         ]
 
         self.main_agent = BaseAgent(
@@ -87,19 +88,23 @@ class Orchestrator:
         if response is None:
             return
 
-        if response.text and "google_search_agent" in response.text:
+        # Extract text from response, handling both direct text and function call results
+        response_text = self._extract_response_text(response)
+        
+        if response_text and "google_search_agent" in response_text:
             search_results: Optional[types.GenerateContentResponse] = self.call_agent(
                 agent=self.search_agent, prompt=user_prompt
             )
             if search_results is not None:
-                print(search_results.text)
+                search_text = self._extract_response_text(search_results)
+                print(search_text)
                 logger.info(search_results)
-                logger.info(search_results.text)
+                logger.info(search_text)
 
         else:
-            print(response.text)
+            print(response_text)
             logger.info(response)
-            logger.info(response.text)
+            logger.info(response_text)
 
     def define_prompt(self, prompt: str) -> str:
         logger.info("Defining prompt")
@@ -136,3 +141,29 @@ class Orchestrator:
             print(f"An unexpected error occurred: {str(e)}")
             logger.error(f"Unexpected error: {str(e)}")
             return None
+    
+    def _extract_response_text(self, response: types.GenerateContentResponse) -> str:
+        """Extract text from response, handling both direct text and function call results"""
+        if response.text:
+            return response.text
+        
+        # If automatic function calling was used, extract result from function response
+        if not hasattr(response, 'automatic_function_calling_history') or not response.automatic_function_calling_history:
+            return ""
+
+        for content in reversed(response.automatic_function_calling_history):
+            if not content.parts:
+                continue
+
+            for part in content.parts:
+                func_response = part.function_response
+                if not func_response or not func_response.response:
+                    continue
+
+                # Check for function response with result
+                if hasattr(part, 'function_response'):
+                    result = func_response.response.get('result', '')
+                    if result:
+                        return result
+        
+        return ""
