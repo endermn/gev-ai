@@ -10,6 +10,7 @@ from tools.common_tools.history_parser import TerminalHistoryParser
 from agents.interfaces import Agent
 from agents.main_agent import BaseAgent
 from agents.google_search_agent import GoogleSearchAgent
+from agents.fitness_agent import FitnessAgent
 
 from tools.agent_tools.interfaces import Tool
 
@@ -80,11 +81,21 @@ class Orchestrator:
             model="gemini-2.5-flash-lite", api_key=api_key
         )
 
-    def start_workflow(self, user_prompt: str) -> None:
+        self.fitness_agent = FitnessAgent(
+            model="gemini-2.5-flash-lite", api_key=api_key
+        )
+
+    def start_workflow(self, user_prompt: str, agent_mode: str = "") -> None:
         logger.info("Starting workflow")
         logger.info(f"User prompt: {user_prompt}")
 
-        response = self.call_agent(agent=self.main_agent, prompt=user_prompt)
+        if agent_mode == "google":
+            response = self.call_agent(agent=self.search_agent, prompt=user_prompt)
+        elif agent_mode == "monk":
+            response = self.call_agent(agent=self.fitness_agent, prompt=user_prompt)
+        else:
+            response = self.call_agent(agent=self.main_agent, prompt=user_prompt)
+
         if response is None:
             return
 

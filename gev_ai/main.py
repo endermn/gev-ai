@@ -31,10 +31,16 @@ def main(args: list[str]) -> None:
         )
         return
 
-    user_prompt: str = " ".join(args[1:])
     orchestrator: Orchestrator = Orchestrator(config=config)
+    user_prompt: str = ""
 
-    orchestrator.start_workflow(user_prompt=user_prompt)
+    if args[1] == "google" or args[1] == "monk":
+        user_prompt = " ".join(args[2:])
+        agent_mode: str = args[1]
+        orchestrator.start_workflow(user_prompt=user_prompt, agent_mode=agent_mode)
+    else:
+        user_prompt = " ".join(args[1:])
+        orchestrator.start_workflow(user_prompt=user_prompt)
 
 
 if __name__ == "__main__":
